@@ -1,48 +1,104 @@
-(1)Project Title
+# SkillLoop – Peer Skill Exchange Platform
 
-SkillSwap: Student Peer Skill Exchange Platform
+A full-stack web application where students exchange skills without monetary transactions. Students register, add teachable/learnable skills, find matches, book sessions, give ratings, earn credits, and appear on a leaderboard.
 
-(2) Problem Statement
+## Technology Stack
 
-Students often have skills but lack a structured platform to share or learn from peers. Existing platforms are mostly paid, unidirectional, or not peer-focused. There is a need for a system that connects students based on teachable and learnable skills.
+| Layer | Technology |
+|-------|-----------|
+| Frontend | React 18 + Vite, React Router 6, Axios |
+| Backend | Java 17 + Spring Boot 3.4, Spring Security, Spring Data JPA |
+| Database | PostgreSQL (Replit managed) |
+| ORM | Hibernate 6 / Spring Data JPA |
 
-(3) Project Objectives
-Build a peer-to-peer skill exchange platform
-Enable users to register and manage skills
-Provide smart skill matching between users
-Implement credit-based reward system
-Support session-based learning interactions
-Create scalable backend using Spring Boot + MySQL
+## Project Structure
 
-(4) Modules of the Project
-Module Name	Description
-User Management Module	Handles user registration, login, and profile management
-Skill Management Module	Allows users to add skills they can teach or learn
-Skill Matching Module	Matches users based on common skill interests
-Credit System Module	Awards credits for teaching and deducts for learning
-Session Management Module	Manages booking and tracking of learning sessions
-Rating System Module (Future Scope)	Allows users to rate each other after sessions
+```
+skillloopbackend/          ← Spring Boot API (port 8080)
+  src/main/java/com/studyvalllet/studyvallet/
+    entity/               User, Skill, SkillSession, Rating, Credit
+    repository/           JPA repositories
+    service/              Business logic
+    controller/           REST controllers
+    dto/                  Request/Response objects
+    config/               CORS + Security
+    exception/            Global error handler
 
-(5) Database Tables
-Table Name	Fields
-Users	id (PK), name, email, password, credits
-Skills	id (PK), user_id (FK), skill_name, skill_type (TEACH / LEARN)
-Sessions (Optional)	id (PK), teacher_id, learner_id, skill_id, session_date, status
+skillloopfrontend/         ← React + Vite app (port 5000)
+  src/
+    pages/                Home, Register, Login, Dashboard, Profile,
+                          AddSkill, MySkills, SkillMatch, BookSession,
+                          Sessions, Ratings, Leaderboard
+    components/           Navbar, Sidebar, Footer, Alert, LoadingSpinner
+    services/api.js       Axios API client
+    context/AuthContext   Auth state management
+```
 
-(6) Technology Stack
-Layer	Technology
-Frontend	React.js, HTML, CSS
-Backend	Java, Spring Boot
-Database	MySQL
-Tools	VS Code, Postman
+## Running the App
 
-(7) Future Enhancements
-AI-based skill recommendation system
-Real-time chat between users
-Video-based learning sessions
-Mobile application support
-Certificate generation after completion
+**Backend** (must start first):
+```bash
+cd skillloopbackend
+mvn spring-boot:run
+# Runs on port 8080
+```
 
- Conclusion
+**Frontend**:
+```bash
+cd skillloopfrontend
+npm install
+npm run dev
+# Runs on port 5000, proxies /api → localhost:8080
+```
 
-SkillSwap enables students to learn and teach skills in a collaborative environment, promoting peer-to-peer learning and reducing dependency on paid platforms.
+Or use the configured Replit workflows: **Backend API** and **Start application**.
+
+## API Endpoints
+
+### Users
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/users/register` | Register new user |
+| POST | `/api/users/login` | Login |
+| GET | `/api/users/{id}` | Get user profile |
+| PUT | `/api/users/{id}` | Update profile |
+| GET | `/api/users/leaderboard` | Top 10 by credits |
+
+### Skills
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/skills` | Add skill |
+| PUT | `/api/skills/{id}` | Update skill |
+| DELETE | `/api/skills/{id}` | Delete skill |
+| GET | `/api/skills/user/{userId}` | User's skills |
+| GET | `/api/skills/match?skillName=X` | Find teachers for a skill |
+
+### Sessions
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/sessions` | Request a session |
+| PATCH | `/api/sessions/{id}/status` | Accept/Reject/Complete |
+| GET | `/api/sessions/user/{userId}` | User's sessions |
+| GET | `/api/sessions/user/{userId}/upcoming` | Upcoming sessions |
+
+### Ratings
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/ratings` | Submit rating |
+| GET | `/api/ratings/user/{userId}` | Ratings received |
+| GET | `/api/ratings/user/{userId}/average` | Average rating |
+
+## Credit System
+
+- New users start with **10 credits**
+- Teaching a session: **+5 credits** awarded
+- Learning a session: **−3 credits** deducted
+
+## Database Tables
+
+All tables are auto-created by Hibernate on startup:
+- `users` — id, name, email, password (BCrypt), credits, availability
+- `skills` — id, user_id, skill_name, skill_type (TEACH/LEARN)
+- `skill_sessions` — id, teacher_id, learner_id, skill_id, session_date, status
+- `ratings` — id, session_id, rater_id, ratee_id, rating (1–5), review
+- `credits` — id, user_id, amount, reason (audit log)

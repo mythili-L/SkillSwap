@@ -1,0 +1,1 @@
+- [SkillLoop stack](skillloop-stack.md) — Spring Boot 3.4 + React/Vite; backend port 8080, frontend port 5000, Replit PostgreSQL.

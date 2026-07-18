@@ -1,0 +1,193 @@
+Build a Complete Full-Stack Project: SkillLoop – Skill Exchange Platform
+
+Create a complete, production-ready full-stack web application named SkillLoop – Skill Exchange Platform for Students.
+
+Technology Stack
+
+- Frontend: React.js with Vite
+- Backend: Java Spring Boot (Maven)
+- Database: MySQL
+- ORM: Spring Data JPA
+- API Communication: Axios + REST APIs
+- Build Tool: Maven
+- Package Manager: npm
+
+Project Description
+
+SkillLoop is a web application where students can exchange skills without monetary transactions. Students can register, log in, add skills they can teach, add skills they want to learn, find matching students, book learning sessions, give ratings, earn credits, and appear on a leaderboard.
+
+Functional Requirements
+
+Authentication
+
+- Register
+- Login
+- Logout
+- Password encryption
+- Form validation
+
+Dashboard
+
+Display:
+
+- Welcome message
+- User profile
+- Credits earned
+- Number of skills
+- Upcoming sessions
+
+Skill Management
+
+Allow users to:
+
+- Add Skill
+- Edit Skill
+- Delete Skill
+- View My Skills
+- Separate "Skills I Can Teach" and "Skills I Want to Learn"
+
+Skill Matching
+
+- Search by skill name
+- Display matching students
+- Show Name
+- Skill
+- Email
+- Availability
+- Connect button
+
+Session Management
+
+- Request Session
+- Accept Session
+- Reject Session
+- Mark Session as Completed
+
+Rating & Review
+
+- Give rating after session completion
+- Add review comments
+- Calculate average rating
+
+Credit System
+
+- Award credits after successful sessions
+- Store credits in database
+- Update credits automatically
+
+Leaderboard
+
+- Rank users by credits
+- Display Top 10 users
+- Show Rank, Name, Credits
+
+Backend Structure
+
+Create the following packages:
+
+controller
+
+- UserController
+- SkillController
+- SessionController
+- RatingController
+
+service
+
+- UserService
+- SkillService
+- SessionService
+- RatingService
+
+repository
+
+- UserRepository
+- SkillRepository
+- SessionRepository
+- RatingRepository
+
+entity
+
+- User
+- Skill
+- Session
+- Rating
+- Credit
+
+Implement CRUD operations using Spring Data JPA.
+
+Create REST APIs for all modules.
+
+Database
+
+Use MySQL.
+
+Create tables:
+
+- users
+- skills
+- sessions
+- ratings
+- credits
+
+Define proper primary keys, foreign keys, and relationships.
+
+Frontend
+
+Create pages:
+
+- Home
+- Register
+- Login
+- Dashboard
+- Profile
+- Add Skill
+- My Skills
+- Skill Match
+- Book Session
+- Ratings
+- Leaderboard
+
+Use React Router.
+
+Use Axios to communicate with backend.
+
+UI
+
+Create a modern responsive interface.
+
+Theme:
+
+- White
+- Blue
+- Light Gray
+
+Use cards, icons, tables, and clean navigation.
+
+Include:
+
+- Responsive Navbar
+- Sidebar
+- Footer
+- Loading Spinner
+- Success/Error Alerts
+- Professional Dashboard
+
+Additional Requirements
+
+- Use clean, modular code.
+- Follow MVC architecture.
+- Add comments where appropriate.
+- Implement exception handling.
+- Validate all inputs.
+- Ensure the application builds without errors.
+- Include sample test data.
+- Generate a README.md explaining setup, project structure, API endpoints, and how to run the application.
+
+Finally:
+
+1. Run the application successfully.
+2. Fix all build/runtime errors automatically.
+3. Verify that every page and API works correctly.
+4. Provide the local development URL.
+5. If deployment is supported, deploy the application and provide a public URL.
